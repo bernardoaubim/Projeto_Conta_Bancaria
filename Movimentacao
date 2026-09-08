@@ -1,0 +1,28 @@
+public class Movimentacao {
+    private int quantidade;
+    private double valorTotal;
+
+    public Movimentacao() {
+        this.quantidade = 0;
+        this.valorTotal = 0.0;
+    }
+
+    // Método auxiliar para registrar a ocorrência e valor 
+    public void registrar(double valor) {
+        this.quantidade++;
+        this.valorTotal += valor;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d operações, Total: R$ %.2f", quantidade, valorTotal);
+    }
+}

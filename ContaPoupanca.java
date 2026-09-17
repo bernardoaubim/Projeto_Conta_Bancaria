@@ -7,9 +7,12 @@ public class ContaPoupanca extends ContaBancaria{
         this.aniversario = aniversario;
     }
 
-    /* @override
-    
-    public void exibirDadosEspecificos(){}
-    
-    getter aniversario*/
+    @Override
+    protected void exibirDadosEspecificos() {
+        System.out.println("  Tipo: Conta Poupança");
+        System.out.println("  Aniversário: " + this.aniversario);
+    }
+    public int getAniversario() {
+        return aniversario;
+    }
 }

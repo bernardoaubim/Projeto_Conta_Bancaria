@@ -7,15 +7,24 @@ public class ContaCorrente extends ContaBancaria {
         this.credito = credito;
     }
 
-    /* @Override
-
-    public void aplicarJuros(){}
-
-    protected boolean autorizaSaque(){}
-
-    protected void exibirDadosEspecificos(){}
-
-    getter/setter de credito
-    
-    */
+    @Override
+    public void aplicarJuros(double taxa) {
+        System.out.println("Não é permitido para Conta Corrente");
+        return;
+    }
+    @Override
+    protected boolean autorizaSaque(double valor) {
+        return valor <= (getSaldo() + this.credito);
+    }
+    @Override 
+    protected void exibirDadosEspecificos() {
+        System.out.println("  Tipo: Conta Corrente");
+        System.out.println("  Crédito: " + this.credito);
+    }
+    public double getCredito() {
+        return credito;
+    }
+    public void setLimiteCredito(double credito) {
+        this.credito = credito;
+    }
 }

@@ -159,9 +159,7 @@ public class MenuPrincipal {
         char tipo;
 
         do {
-            tipo = Character.toUpperCase(
-                Teclado.leChar("Tipo de conta (C - Corrente, P - Poupança, I - Investimento): ")
-            );
+            tipo = Character.toUpperCase(Teclado.leChar("Tipo de conta (C - Corrente, P - Poupança, I - Investimento): "));
 
             if (tipo != 'C' && tipo != 'P' && tipo != 'I') {
                 System.out.println("Tipo de conta inválido.");
@@ -182,7 +180,7 @@ public class MenuPrincipal {
         } while (saldoInicial < 0);
 
         // criação da conta específica
-        switch (Character.toUpperCase(tipo)) {
+        switch (tipo) {
 
             case 'C':
                 double limite;

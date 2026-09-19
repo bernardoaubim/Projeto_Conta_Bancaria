@@ -1,30 +1,55 @@
 public class ContaCorrente extends ContaBancaria {
-    
-    private double credito;
+    private double limiteCredito;
 
-    public ContaCorrente(Cliente cliente, double saldo, double credito) {
-        super(cliente, saldo);
-        this.credito = credito;
+    public ContaCorrente(Cliente cliente, double saldoInicial, double limiteCredito) {
+        super(cliente, saldoInicial);
+        this.limiteCredito = limiteCredito;
+    }
+
+    public double getLimiteCredito() {
+        return limiteCredito;
     }
 
     @Override
-    public void aplicarJuros(double taxa) {
-        System.out.println("Não é permitido para Conta Corrente");
-        return;
+    public void movimenta(Operacao op) {
+        if (op == null) {
+            System.out.println("Erro: Operação inválida.");
+            return;
+        }
+
+        char tipo = op.getTipo();
+        double valor = op.getValor();
+
+        if (tipo == 'D') {
+            if (valor <= 0) {
+                System.out.println("Erro: O valor do depósito deve ser maior que zero.");
+                return;
+            }
+            setSaldoAtual(getSaldoAtual() + valor);
+            getDepositos().registrar(valor);
+        } else if (tipo == 'S') {
+            if (valor <= 0) {
+                System.out.println("Erro: O valor do saque deve ser maior que zero.");
+                return;
+            }
+            //Valida se saldo + limite de crédito é suficiente
+            if (getSaldoAtual() + limiteCredito < valor) {
+                System.out.println("Erro: Saldo insuficiente e limite de crédito ultrapassado.");
+                return;
+            }
+            setSaldoAtual(getSaldoAtual() - valor);
+            getSaques().registrar(valor);
+        } else if (tipo == 'J') {
+            //Juros indisponíveis p conta corrente
+            System.out.println("Erro: Operação de juros indisponível para Conta Corrente.");
+        } else {
+            System.out.println("Erro: Tipo de operação inválido.");
+        }
     }
+
     @Override
-    protected boolean autorizaSaque(double valor) {
-        return valor <= (getSaldo() + this.credito);
-    }
-    @Override 
     protected void exibirDadosEspecificos() {
         System.out.println("  Tipo: Conta Corrente");
-        System.out.println("  Crédito: " + this.credito);
-    }
-    public double getCredito() {
-        return credito;
-    }
-    public void setLimiteCredito(double credito) {
-        this.credito = credito;
+        System.out.printf("  Limite de Crédito: R$ %.2f\n", limiteCredito);
     }
 }

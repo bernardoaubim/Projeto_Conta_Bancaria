@@ -42,7 +42,7 @@ public class Teclado {
         } catch (IOException e) {
             System.out.println("Erro de I/O: " + e);
         } catch (NumberFormatException e) {
-            System.out.println("O valor digitado deve ser inteiro: " + e);
+            System.out.println("O valor digitado deve ser inteiro:");
         }
         return a;
     }
@@ -68,9 +68,9 @@ public class Teclado {
             s = d.readLine();
             a = Double.parseDouble(s);
         } catch (IOException e) {
-            System.out.println("Erro de I/O: " + e);
+            System.out.println("Erro de I/O: ");
         } catch (NumberFormatException e) {
-            System.out.println("O valor digitado deve ser número: " + e);
+            System.out.println("O valor digitado deve ser número: ");
         }
         return a;
     }
@@ -95,7 +95,7 @@ public class Teclado {
         try {
             s = d.readLine();
         } catch (IOException e) {
-            System.out.println("Erro de I/O: " + e);
+            System.out.println("Erro de I/O: ");
         }
         return s;
     }
@@ -116,9 +116,9 @@ public class Teclado {
             s = d.readLine();
             a = s.charAt(0);
         } catch (IOException e) {
-            System.out.println("Erro de I/O: " + e);
+            System.out.println("Erro de I/O: ");
         } catch (NumberFormatException e) {
-            System.out.println("o valor digitado deve ser char: " + e);
+            System.out.println("o valor digitado deve ser char: ");
         }
         return a;
     }

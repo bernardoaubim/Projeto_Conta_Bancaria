@@ -46,7 +46,7 @@ public class MenuPrincipal {
 
                 case 2:
                     if (conta != null) {
-                        // futuramente realizarDeposito();
+                        realizarDeposito();
                     } else {
                         System.out.println("É necessário abrir uma conta primeiro.");
                     }
@@ -162,5 +162,18 @@ public class MenuPrincipal {
             opcao = Teclado.leInt("Digite 0 para sair da tela de integrantes.");
             System.out.print("\033\143");
         }
+    }
+
+    public static void realizarDeposito() {
+        double valor = Teclado.leDouble("Digite o valor do depósito: ");
+
+        if (valor <= 0) {
+            System.out.println("Valor inválido.");
+            return;
+        }
+        Operacao operacao = new Operacao('D', valor);
+        conta.movimenta(operacao);
+
+
     }
 }

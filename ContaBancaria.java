@@ -2,14 +2,14 @@ public class ContaBancaria {
     
     private Cliente cliente;
     private double saldo;
-    private double saldoInicial;
 
+    private double saldoInicial;
     private double saldoMin;
     private double saldoMax;
 
-    /*private Movimentacao deposito;
+    private Movimentacao deposito;
     private Movimentacao saque;
-    private Movimentacao juros;*/
+    private Movimentacao juros;
 
     public ContaBancaria (Cliente cliente, double saldo){
         this.cliente = cliente;
@@ -19,11 +19,13 @@ public class ContaBancaria {
         this.saldoMin = saldo;
         this.saldoMax = saldo;
 
-        /* this.deposito = new Movimentacao();
+        this.deposito = new Movimentacao();
         this.saque = new Movimentacao();
-        this.juros = new MOviemntacao(); */
+        this.juros = new Movimentacao();
     }
+
     public void movimenta(Operacao operacao){
+
         char tipo = operacao.getTipo();
         double valor = operacao.getValor();
 
@@ -78,8 +80,7 @@ public class ContaBancaria {
         }
 
         this.saldo += valor; 
-
-        //pd precisar de metd do Movimentação para registrar e compor extrato
+        this.deposito.registrar(valor);
 
         if (this.saldo > this.saldoMax) {
             this.saldoMax = this.saldo;
@@ -155,5 +156,25 @@ public class ContaBancaria {
     }
     public double getSaldo() {
         return this.saldo;
+    }
+
+    public double getSaldoAtual() {
+    return this.saldo;
+    }
+
+    public void setSaldoAtual(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public Movimentacao getDepositos() {
+    return this.deposito;
+    }
+
+    public Movimentacao getSaques() {
+        return this.saque;
+    }
+
+    public Movimentacao getJuros() {
+        return this.juros;
     }
 }

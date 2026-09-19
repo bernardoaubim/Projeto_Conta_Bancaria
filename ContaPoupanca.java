@@ -12,6 +12,8 @@ public class ContaPoupanca extends ContaBancaria {
 
     @Override
     public void movimenta(Operacao op) {
+        
+
         if (op == null) {
             System.out.println("Erro: Operação inválida.");
             return;
@@ -21,12 +23,7 @@ public class ContaPoupanca extends ContaBancaria {
         double valor = op.getValor();
 
         if (tipo == 'D') {
-            if (valor <= 0) {
-                System.out.println("Erro: O valor do depósito deve ser maior que zero.");
-                return;
-            }
-            setSaldoAtual(getSaldoAtual() + valor);
-            getDepositos().registrar(valor);
+             super.movimenta(op);
         } else if (tipo == 'S') {
             if (valor <= 0) {
                 System.out.println("Erro: O valor do saque deve ser maior que zero.");

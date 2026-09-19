@@ -21,12 +21,7 @@ public class ContaInvestimento extends ContaBancaria {
         double valor = op.getValor();
 
         if (tipo == 'D') {
-            if (valor <= 0) {
-                System.out.println("Erro: O valor do depósito deve ser maior que zero.");
-                return;
-            }
-            setSaldoAtual(getSaldoAtual() + valor);
-            getDepositos().registrar(valor);
+            super.movimenta(op);
         } else if (tipo == 'S') {
             //Saques bloqueados p conta investimento
             System.out.println("Erro: Operação de saque indisponível para Conta Investimento.");

@@ -145,11 +145,13 @@ public class MenuPrincipal {
 
             int idade = 2026 - ano;
 
-            if (idade < 16) {
+            if (ano > 2026) {
+                System.out.println("Ano de nascimento inválido.");
+            } else if (idade < 16) {
                 System.out.println("É necessário ter pelo menos 16 anos.");
             }
 
-        } while (2026 - ano < 16);
+        } while (ano > 2026 || 2026 - ano < 16);
         Data nascimento = new Data(dia, mes, ano);
 
         Cliente cliente = new Cliente(nome, cpf, nascimento);
@@ -213,9 +215,36 @@ public class MenuPrincipal {
                 break;
 
             case 'I':
-                int diaVencimento = Teclado.leInt("Dia do vencimento: ");
-                int mesVencimento = Teclado.leInt("Mês do vencimento: ");
-                int anoVencimento = Teclado.leInt("Ano do vencimento: ");
+                int diaVencimento;
+                int mesVencimento;
+                int anoVencimento;
+
+                do {
+                    diaVencimento = Teclado.leInt("Dia do vencimento: ");
+
+                    if (diaVencimento < 1 || diaVencimento > 31) {
+                        System.out.println("Dia inválido.");
+                    }
+
+                } while (diaVencimento < 1 || diaVencimento > 31);
+
+                do {
+                    mesVencimento = Teclado.leInt("Mês do vencimento: ");
+
+                    if (mesVencimento < 1 || mesVencimento > 12) {
+                        System.out.println("Mês inválido.");
+                    }
+
+                } while (mesVencimento < 1 || mesVencimento > 12);
+
+                do {
+                    anoVencimento = Teclado.leInt("Ano do vencimento: ");
+
+                    if (anoVencimento < 2026) {
+                        System.out.println("Ano inválido.");
+                    }
+
+                } while (anoVencimento < 2026);
 
                 Data vencimento = new Data(
                         diaVencimento,

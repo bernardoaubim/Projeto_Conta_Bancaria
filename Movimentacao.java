@@ -7,10 +7,12 @@ public class Movimentacao {
         this.valorTotal = 0.0;
     }
 
-    // Método auxiliar para registrar a ocorrência e valor 
+    //Adiciona 1 à quantidade e acumula o valor ao total movimentado
     public void registrar(double valor) {
-        this.quantidade++;
-        this.valorTotal += valor;
+        if (valor > 0) {
+            this.quantidade++;
+            this.valorTotal += valor;
+        }
     }
 
     public int getQuantidade() {
@@ -23,6 +25,6 @@ public class Movimentacao {
 
     @Override
     public String toString() {
-        return String.format("%d operações, Total: R$ %.2f", quantidade, valorTotal);
+        return String.format("Quantidade: %d | Valor Total: R$ %.2f", quantidade, valorTotal);
     }
 }

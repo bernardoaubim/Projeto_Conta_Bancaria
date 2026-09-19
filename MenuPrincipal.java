@@ -95,31 +95,120 @@ public class MenuPrincipal {
 
         System.out.println("\n--- ABERTURA DE CONTA ---");
 
-        String nome = Teclado.leString("Nome: ");
-        String cpf = Teclado.leString("CPF: ");
+        
+        String nome;
+        do {
+            nome = Teclado.leString("Nome: ");
 
-        int dia = Teclado.leInt("Dia de nascimento: ");
-        int mes = Teclado.leInt("Mês de nascimento: ");
-        int ano = Teclado.leInt("Ano de nascimento: ");
+            if (nome.trim().isEmpty()) {
+                System.out.println("Nome não pode ser vazio.");
+            }
 
+        } while (nome.trim().isEmpty());
+
+
+        String cpf;
+
+        do {
+            cpf = Teclado.leString("CPF: ");
+
+            if (cpf.trim().isEmpty()) {
+                System.out.println("CPF não pode ser vazio.");
+            }
+
+        } while (cpf.trim().isEmpty());
+
+        int dia;
+        int mes;
+        int ano;
+
+        do {
+            dia = Teclado.leInt("Dia de nascimento: ");
+
+            if (dia < 1 || dia > 31) {
+                System.out.println("Dia inválido.");
+            }
+
+        } while (dia < 1 || dia > 31);
+
+        do {
+            mes = Teclado.leInt("Mês de nascimento: ");
+
+            if (mes < 1 || mes > 12) {
+                System.out.println("Mês inválido.");
+            }
+
+        } while (mes < 1 || mes > 12);
+
+        do {
+            ano = Teclado.leInt("Ano de nascimento: ");
+
+            int idade = 2026 - ano;
+
+            if (idade < 16) {
+                System.out.println("É necessário ter pelo menos 16 anos.");
+            }
+
+        } while (2026 - ano < 16);
         Data nascimento = new Data(dia, mes, ano);
 
         Cliente cliente = new Cliente(nome, cpf, nascimento);
 
-        char tipo = Teclado.leChar("Tipo de conta (C - Corrente, P - Poupança, I - Investimento): ");
+        char tipo;
 
-        double saldoInicial = Teclado.leDouble("Saldo inicial: ");
+        do {
+            tipo = Character.toUpperCase(
+                Teclado.leChar("Tipo de conta (C - Corrente, P - Poupança, I - Investimento): ")
+            );
+
+            if (tipo != 'C' && tipo != 'P' && tipo != 'I') {
+                System.out.println("Tipo de conta inválido.");
+            }
+
+        } while (tipo != 'C' && tipo != 'P' && tipo != 'I');
+
+
+        double saldoInicial;
+
+        do {
+            saldoInicial = Teclado.leDouble("Saldo inicial: ");
+
+            if (saldoInicial < 0) {
+                System.out.println("O saldo inicial não pode ser negativo.");
+            }
+
+        } while (saldoInicial < 0);
 
         // criação da conta específica
         switch (Character.toUpperCase(tipo)) {
 
             case 'C':
-                double limite = Teclado.leDouble("Limite de crédito: ");
+                double limite;
+
+                do {
+                    limite = Teclado.leDouble("Limite de crédito: ");
+
+                    if (limite < 0) {
+                        System.out.println("O limite de crédito não pode ser negativo.");
+                    }
+
+                } while (limite < 0);
+
                 conta = new ContaCorrente(cliente, saldoInicial, limite);
                 break;
 
             case 'P':
-                int diaAniversario = Teclado.leInt("Dia de aniversário da conta: ");
+                int diaAniversario;
+
+                do {
+                    diaAniversario = Teclado.leInt("Dia de aniversário da conta: ");
+
+                    if (diaAniversario < 1 || diaAniversario > 31) {
+                        System.out.println("Dia inválido.");
+                    }
+
+                } while (diaAniversario < 1 || diaAniversario > 31);
+
                 conta = new ContaPoupanca(cliente, saldoInicial, diaAniversario);
                 break;
 

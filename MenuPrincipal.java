@@ -169,15 +169,8 @@ public class MenuPrincipal {
 
 
         double saldoInicial;
-
-        do {
-            saldoInicial = Teclado.leDouble("Saldo inicial: ");
-
-            if (saldoInicial < 0) {
-                System.out.println("O saldo inicial não pode ser negativo.");
-            }
-
-        } while (saldoInicial < 0);
+        
+            saldoInicial = pedirSaldo("Saldo inicial: ");
 
         // criação da conta específica
         switch (tipo) {
@@ -294,5 +287,27 @@ public class MenuPrincipal {
     public static void realizarSaque() {
     double valor = Teclado.leDouble("Digite o valor do saque: ");
     conta.movimenta(new Operacao('S', valor));
+    }
+
+    //teclado.leDouble() permitia um bug onde entrada invalida passava por 0 
+    //isso vlaia para outros parâmetros, mas no SaldoInicial contaminava mtds importantes 
+    private static double pedirSaldo(String mensagem) {
+        while (true) {
+            System.out.print(mensagem);
+            String valorStr = Teclado.leString();
+
+            if (verificarNumero(valorStr)) {
+                return Double.parseDouble(valorStr.trim());
+            }
+
+            System.out.println("Valor inválido.");
+        }
+    }    private static boolean verificarNumero(String valorStr) {
+        try {
+            double valor = Double.parseDouble(valorStr.trim());
+            return valor > 0;
+        } catch (NumberFormatException exception) {
+            return false;
+        }
     }
 }

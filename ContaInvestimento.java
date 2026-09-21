@@ -18,21 +18,12 @@ public class ContaInvestimento extends ContaBancaria {
         }
 
         char tipo = op.getTipo();
-        double valor = op.getValor();
 
-        if (tipo == 'D') {
+        if (tipo == 'D' || tipo == 'J') {
             super.movimenta(op);
         } else if (tipo == 'S') {
-            //Saques bloqueados p conta investimento
+            // Saques bloqueados para conta investimento
             System.out.println("Erro: Operação de saque indisponível para Conta Investimento.");
-        } else if (tipo == 'J') {
-            if (valor <= 0) {
-                System.out.println("Erro: A taxa de juros deve ser maior que zero.");
-                return;
-            }
-            double rendimento = getSaldoAtual() * (valor / 100.0);
-            setSaldoAtual(getSaldoAtual() + rendimento);
-            getJuros().registrar(rendimento);
         } else {
             System.out.println("Erro: Tipo de operação inválido.");
         }

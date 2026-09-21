@@ -18,28 +18,20 @@ public class ContaCorrente extends ContaBancaria {
         }
 
         char tipo = op.getTipo();
-        double valor =  op.getValor();
 
-        if (tipo == 'D') {
+        if (tipo == 'D' || tipo == 'S') {
             super.movimenta(op);
-        } else if (tipo == 'S') {
-            if (valor <= 0) {
-                System.out.println("Erro: O valor do saque deve ser maior que zero.");
-                return;
-            }
-            //Valida se saldo + limite de crédito é suficiente
-            if (getSaldoAtual() + limiteCredito < valor) {
-                System.out.println("Erro: Saldo insuficiente e limite de crédito ultrapassado.");
-                return;
-            }
-            setSaldoAtual(getSaldoAtual() - valor);
-            getSaques().registrar(valor);
         } else if (tipo == 'J') {
-            //Juros indisponíveis p conta corrente
+            // Juros indisponíveis para conta corrente
             System.out.println("Erro: Operação de juros indisponível para Conta Corrente.");
         } else {
             System.out.println("Erro: Tipo de operação inválido.");
         }
+    }
+
+    @Override
+    protected boolean autorizaSaque(double valor) {
+        return valor <= getSaldoAtual() + limiteCredito;
     }
 
     @Override

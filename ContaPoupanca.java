@@ -12,37 +12,15 @@ public class ContaPoupanca extends ContaBancaria {
 
     @Override
     public void movimenta(Operacao op) {
-        
-
         if (op == null) {
             System.out.println("Erro: Operação inválida.");
             return;
         }
 
         char tipo = op.getTipo();
-        double valor = op.getValor();
 
-        if (tipo == 'D') {
-             super.movimenta(op);
-        } else if (tipo == 'S') {
-            if (valor <= 0) {
-                System.out.println("Erro: O valor do saque deve ser maior que zero.");
-                return;
-            }
-            if (getSaldoAtual() < valor) {
-                System.out.println("Erro: Saldo insuficiente para realizar o saque na Conta Poupança.");
-                return;
-            }
-            setSaldoAtual(getSaldoAtual() - valor);
-            getSaques().registrar(valor);
-        } else if (tipo == 'J') {
-            if (valor <= 0) {
-                System.out.println("Erro: A taxa de juros deve ser maior que zero.");
-                return;
-            }
-            double rendimento = getSaldoAtual() * (valor / 100.0);
-            setSaldoAtual(getSaldoAtual() + rendimento);
-            getJuros().registrar(rendimento);
+        if (tipo == 'D' || tipo == 'S' || tipo == 'J') {
+            super.movimenta(op);
         } else {
             System.out.println("Erro: Tipo de operação inválido.");
         }

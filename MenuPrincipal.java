@@ -54,7 +54,7 @@ public class MenuPrincipal {
 
                 case 3:
                     if (conta != null) {
-                        // futuramente realizarSaque();
+                        realizarSaque();
                     } else {
                         System.out.println("É necessário abrir uma conta primeiro.");
                     }
@@ -62,7 +62,7 @@ public class MenuPrincipal {
 
                 case 4:
                     if (conta != null) {
-                        // futuramente aplicarJuros();
+                        aplicarJuros();
                     } else {
                         System.out.println("É necessário abrir uma conta primeiro.");
                     }
@@ -70,7 +70,7 @@ public class MenuPrincipal {
 
                 case 5:
                     if (conta != null) {
-                        // futuramente extrato();
+                        conta.exibirExtrato(); 
                     } else {
                         System.out.println("É necessário abrir uma conta primeiro.");
                     }
@@ -270,7 +270,6 @@ public class MenuPrincipal {
             System.out.println("|           Integrantes           |");
             System.out.println("+---------------------------------+");
             System.out.println("|      Bernardo Aubim Barbosa     |");
-            System.out.println("|      Davi Fronza Caillava       |");
             System.out.println("|      Enzo Bueno                 |");
             System.out.println("|      Lorenzo Penna de Moraes    |");
             System.out.println("|      Yasmin Soares Peña         |");
@@ -282,14 +281,18 @@ public class MenuPrincipal {
 
     public static void realizarDeposito() {
         double valor = Teclado.leDouble("Digite o valor do depósito: ");
-
-        if (valor <= 0) {
-            System.out.println("Valor inválido.");
-            return;
-        }
         Operacao operacao = new Operacao('D', valor);
         conta.movimenta(operacao);
+    }
 
+    public static void aplicarJuros() {
+        double taxa = Teclado.leDouble("Digite a taxa de juros: ");
+        Operacao operacao = new Operacao('J', taxa);
+        conta.movimenta(operacao);
+    }
 
+    public static void realizarSaque() {
+    double valor = Teclado.leDouble("Digite o valor do saque: ");
+    conta.movimenta(new Operacao('S', valor));
     }
 }

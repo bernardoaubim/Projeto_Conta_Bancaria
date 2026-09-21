@@ -24,14 +24,14 @@ public class ContaBancaria {
         this.juros = new Movimentacao();
     }
 
-    public void movimenta(Operacao operacao){
+    public void movimenta(Operacao operacao) {
 
         char tipo = operacao.getTipo();
         double valor = operacao.getValor();
 
-        if (valor <= 0 ) {
+        if (valor <= 0) {
             System.out.println("Valor inválido.");
-            return; 
+            return;
         }
         switch (tipo) {
             case 'D':
@@ -49,28 +49,26 @@ public class ContaBancaria {
                 break;
             default:
                 System.out.println("Informe uma operação válida.");
-                break;        
+                break;
         }
     }
 
-    public void aplicarJuros(double taxa){
+    public void aplicarJuros(double taxa) {
         if (taxa <= 0) {
             System.out.println("Taxa inválida.");
             return;
         }
-        double saldoAnterior = this.saldo; // guarda o saldo inicial
+        double saldoAnterior = this.saldo;
         double rendimento = this.saldo * (taxa / 100);
         this.saldo += rendimento;
+        this.juros.registrar(rendimento);          // registra para o extrato
 
         if (this.saldo > this.saldoMax) {
             this.saldoMax = this.saldo;
         }
         System.out.println("Saldo Inicial: R$ " + saldoAnterior);
-        System.out.println("Rendimento: R$" + rendimento);
-        System.out.println("Saldo atual: R$" + this.saldo);
-
-
-        //pode precisar de metd do Moviementação para registrar e compor extrato
+        System.out.println("Rendimento: R$ " + rendimento);
+        System.out.println("Saldo atual: R$ " + this.saldo);
     }
 
     public void realizarDeposito(double valor){
@@ -105,15 +103,15 @@ public class ContaBancaria {
             int saqueNotas = montante / nota;
 
             if (saqueNotas > 0) {
-                extratoNotas += saqueNotas + "nota(s) de R$ " + nota + "\n";
+                extratoNotas += saqueNotas + " nota(s) de R$ " + nota + "\n";
                 montante %= nota;  // retorna o resto da divisão ao loop
             }
         }
 
         if (montante == 0) {
             this.saldo -= valor;
+            this.saque.registrar(valor);
 
-            //pd precisar de metd do Movimentação para registrar e compor extrato
             if (this.saldo < this.saldoMin) {
                 this.saldoMin = this.saldo;
             }
@@ -142,7 +140,9 @@ public class ContaBancaria {
             System.out.println("  Atual:   R$ " + this.saldo);
 
             System.out.println("\nMovimentações (Qtd - Valor Total):");
-             //REQUER mtd no movimentação
+            System.out.println("  Depósitos: " + this.deposito);
+            System.out.println("  Saques:    " + this.saque);
+            System.out.println("  Juros:     " + this.juros);
 
             System.out.println("\nPicos da Conta:");
             System.out.println("  Mínimo: R$ " + this.saldoMin);

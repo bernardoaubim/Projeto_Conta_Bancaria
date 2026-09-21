@@ -114,7 +114,11 @@ public class Teclado {
         char a = ' ';
         try {
             s = d.readLine();
-            a = s.charAt(0);
+            if (s == null || s.isEmpty()) {
+                System.out.println("Entrada vazia. Digite um caractere.");
+            } else {
+                a = s.charAt(0);
+            }
         } catch (IOException e) {
             System.out.println("Erro de I/O: ");
         } catch (NumberFormatException e) {

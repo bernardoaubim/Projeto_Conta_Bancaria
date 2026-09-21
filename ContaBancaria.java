@@ -88,43 +88,66 @@ public class ContaBancaria {
     }
 
     //lógica de caixa eletronico. Por alguma razão enunciado n menciona nota de 200
-    public void realizarSaque(double valor){
-        if (valor % 1 != 0) { //enunciado delimita apenas notas, presumo que centavos n são considerados
-            System.out.println("Operação inválida: Este terminal não opera com moedas.");   
-            return;         
+    public void realizarSaque(double valor) {
+        if (valor % 1 != 0) {
+            System.out.println("Operação inválida: Este terminal não opera com moedas.");
+            return;
         }
-        
-        int montante = (int) valor; //corta o decimal usando apenas notas(inteiros)
 
-        int[] notas = {100, 50, 20, 10, 5, 2}; //testar se ordem será da maior p/menor conf enunciado
-        String extratoNotas = "";
+        int montante = (int) valor;
+        int n100 = 0, n50 = 0, n20 = 0, n10 = 0, n5 = 0, n2 = 0;
 
-        for (int nota : notas) {
-            int saqueNotas = montante / nota;
-
-            if (saqueNotas > 0) {
-                extratoNotas += saqueNotas + " nota(s) de R$ " + nota + "\n";
-                montante %= nota;  // retorna o resto da divisão ao loop
+        // se for ímpar, precisa tirar uma nota de 5 para sobrar valor par
+        if (montante % 2 != 0) {
+            if (montante < 5) {
+                System.out.println("Notas indisponíveis para sacar R$ " + valor);
+                return;
             }
+            n5 = 1;
+            montante -= 5;
         }
 
-        if (montante == 0) {
-            this.saldo -= valor;
-            this.saque.registrar(valor);
+        n100 = montante / 100;
+        montante %= 100;
 
-            if (this.saldo < this.saldoMin) {
-                this.saldoMin = this.saldo;
-            }
+        n50 = montante / 50;
+        montante %= 50;
 
-            System.out.println("Saque de R$ " + valor + "realizado com sucesso!");
-            System.out.print(extratoNotas);
-            System.out.println("Saldo Atualizado: R$ " + this.saldo);
-        }
-        else{
+        n20 = montante / 20;
+        montante %= 20;
+
+        n10 = montante / 10;
+        montante %= 10;
+
+        n2 = montante / 2;
+        montante %= 2;
+
+        if (montante != 0) {
             System.out.println("Notas indisponíveis para sacar R$ " + valor);
-            //testar se o valor não-sacado afeta o saldo
+            return;
         }
+
+        this.saldo -= valor;
+        this.saque.registrar(valor);
+
+        if (this.saldo < this.saldoMin) {
+            this.saldoMin = this.saldo;
+        }
+
+        String extratoNotas = "";
+        if (n100 > 0) extratoNotas += n100 + " nota(s) de R$ 100\n";
+        if (n50 > 0)  extratoNotas += n50 + " nota(s) de R$ 50\n";
+        if (n20 > 0)  extratoNotas += n20 + " nota(s) de R$ 20\n";
+        if (n10 > 0)  extratoNotas += n10 + " nota(s) de R$ 10\n";
+        if (n5 > 0)   extratoNotas += n5 + " nota(s) de R$ 5\n";
+        if (n2 > 0)   extratoNotas += n2 + " nota(s) de R$ 2\n";
+
+        System.out.println("Saque de R$ " + valor + " realizado com sucesso!");
+        System.out.print(extratoNotas);
+        System.out.printf("Saldo Atualizado: R$ %.2f\n", this.saldo);
     }
+
+    
         public void exibirExtrato() {
             System.out.println("\nEXTRATO BANCÁRIO");
 

@@ -70,7 +70,7 @@ public class MenuPrincipal {
 
                 case 5:
                     if (conta != null) {
-                        conta.exibirExtrato(); 
+                        conta.exibirExtrato();
                     } else {
                         System.out.println("É necessário abrir uma conta primeiro.");
                     }
@@ -95,7 +95,6 @@ public class MenuPrincipal {
 
         System.out.println("\n--- ABERTURA DE CONTA ---");
 
-        
         String nome;
         do {
             nome = Teclado.leString("Nome: ");
@@ -105,7 +104,6 @@ public class MenuPrincipal {
             }
 
         } while (nome.trim().isEmpty());
-
 
         String cpf;
 
@@ -159,14 +157,14 @@ public class MenuPrincipal {
         char tipo;
 
         do {
-            tipo = Character.toUpperCase(Teclado.leChar("Tipo de conta (C - Corrente, P - Poupança, I - Investimento): "));
+            tipo = Character
+                    .toUpperCase(Teclado.leChar("Tipo de conta (C - Corrente, P - Poupança, I - Investimento): "));
 
             if (tipo != 'C' && tipo != 'P' && tipo != 'I') {
                 System.out.println("Tipo de conta inválido.");
             }
 
         } while (tipo != 'C' && tipo != 'P' && tipo != 'I');
-
 
         double saldoInicial;
         
@@ -285,8 +283,8 @@ public class MenuPrincipal {
     }
 
     public static void realizarSaque() {
-    double valor = Teclado.leDouble("Digite o valor do saque: ");
-    conta.movimenta(new Operacao('S', valor));
+        double valor = Teclado.leDouble("Digite o valor do saque: ");
+        conta.movimenta(new Operacao('S', valor));
     }
 
     //teclado.leDouble() permitia um bug onde entrada invalida passava por 0 

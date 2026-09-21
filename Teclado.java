@@ -9,7 +9,7 @@ public class Teclado {
     private static String s;
     private static final InputStreamReader i;
     private static final BufferedReader d;
-    
+
     static {
         // Detecta o charset apropriado
         Charset charset = detectarCharset();
@@ -17,19 +17,19 @@ public class Teclado {
         d = new BufferedReader(i);
         // System.out.println("Usando charset: " + charset.name());
     }
-    
+
     private static Charset detectarCharset() {
         // Tenta obter do console primeiro
         Console console = System.console();
         if (console != null) {
             return console.charset();
         }
-        
+
         // Fallback para charset padrão
         return Charset.defaultCharset();
     }
 
-     /**
+    /**
      * Lê um inteiro.
      *
      * @return int
@@ -114,7 +114,11 @@ public class Teclado {
         char a = ' ';
         try {
             s = d.readLine();
-            a = s.charAt(0);
+            if (s == null || s.isEmpty()) {
+                System.out.println("Entrada vazia. Digite um caractere.");
+            } else {
+                a = s.charAt(0);
+            }
         } catch (IOException e) {
             System.out.println("Erro de I/O: ");
         } catch (NumberFormatException e) {

@@ -101,20 +101,24 @@ public class MenuPrincipal {
 
             if (nome.trim().isEmpty()) {
                 System.out.println("Nome não pode ser vazio.");
+            } else if (!nome.trim().matches("[a-zA-ZÀ-ÿ\\s]+")) {
+                System.out.println("Nome deve conter apenas letras.");
             }
 
-        } while (nome.trim().isEmpty());
+        } while (nome.trim().isEmpty() || !nome.trim().matches("[a-zA-ZÀ-ÿ\\s]+"));
 
         String cpf;
 
         do {
-            cpf = Teclado.leString("CPF: ");
+            cpf = Teclado.leString("CPF: ").trim();
 
-            if (cpf.trim().isEmpty()) {
+            if (cpf.isEmpty()) {
                 System.out.println("CPF não pode ser vazio.");
+            } else if (!cpf.matches("\\d{11}")) {
+                System.out.println("CPF deve conter 11 números.");
             }
 
-        } while (cpf.trim().isEmpty());
+        } while (cpf.isEmpty() || !cpf.matches("\\d{11}"));
 
         int dia;
         int mes;
